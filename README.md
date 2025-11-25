@@ -57,20 +57,29 @@ python -m dbbackup.cli restore --dbtype postgres --host localhost --username adm
 
 ```
 db-backup-utility/
-├── src/dbbackup/
-│   ├── cli.py
-│   ├── connectors.py
-│   ├── backup.py
-│   ├── restore.py
-│   ├── storage.py
-│   ├── cloud_s3.py
-│   ├── cloud_gcs.py
-│   ├── cloud_azure.py
-│   ├── compress.py
-│   └── logger.py
-├── examples/
+├── README.md
+├── LICENSE
+├── pyproject.toml
 ├── requirements.txt
-└── README.md
+├── src/
+│   ├── dbbackup/
+│   │   ├── __init__.py
+│   │   ├── cli.py            # entrypoint (Click)
+│   │   ├── config.py         # config parsing (YAML/ENV)
+│   │   ├── logger.py         # centralized logging
+│   │   ├── connectors.py     # DB connector + test_connection
+│   │   ├── backup.py         # backup orchestration
+│   │   ├── restore.py        # restore orchestration
+│   │   ├── storage.py        # local & cloud (S3, GCS, Azure) upload/download
+│   │   ├── compress.py       # gzip / tar / zip helpers
+│   │   └── scheduler.py      # APScheduler wrapper (optional)
+├── examples/
+│   ├── mysql.example.yml
+│   ├── postgres.example.yml
+│   └── mongodb.example.yml
+└── scripts/
+    ├── install.sh
+    └── systemd/ (service + timer example)
 ```
 
 ## License
