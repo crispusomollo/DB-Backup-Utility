@@ -18,8 +18,8 @@ Includes compression, S3/GCS/Azure storage, logging, scheduling, and selective-t
 ## Quick Start
 
 ```bash
-git clone https://github.com/your-github-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/crispusomollo/DB-Backup-Utility.git
+cd DB-Backup-Utility
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
