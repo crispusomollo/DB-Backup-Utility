@@ -1,0 +1,8 @@
+dbtype: mongodb
+host: localhost
+port: 27017
+username: admin
+password: secret
+database: mydb
+backup_path: ./backups
+
