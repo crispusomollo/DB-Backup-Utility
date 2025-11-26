@@ -1,0 +1,12 @@
+[Unit]
+Description=Database Backup Utility Service
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/db-backup-utility
+ExecStart=/opt/db-backup-utility/.venv/bin/python -m dbbackup.cli backup --dbtype postgres --host localhost --username postgres --database mydb
+Restart=on-failure
+User=youruser
+Group=yourgroup
+
