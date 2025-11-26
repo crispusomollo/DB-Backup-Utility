@@ -115,7 +115,7 @@ db-backup-utility/
 ## Install from source
 
 ```bash
-git clone https://github.com/yourname/db-backup-utility
+git clone https://github.com/crispusomollo/db-backup-utility
 cd db-backup-utility
 pip install -r requirements.txt
 pip install .
