@@ -1,0 +1,8 @@
+dbtype: mysql
+host: localhost
+port: 3306
+username: root
+password: secret
+database: mydb
+backup_path: ./backups
+
