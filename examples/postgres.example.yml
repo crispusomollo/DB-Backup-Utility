@@ -1,8 +1,27 @@
-dbtype: postgres
-host: localhost
-port: 5432
-username: postgres
-password: secret
-database: mydb
-backup_path: ./backups
+database:
+  engine: postgres
+  host: localhost
+  port: 5432
+  user: postgres
+  password: yourpassword
+  name: mydatabase
+
+backup:
+  output_dir: ./backups
+  compression: true
+
+storage:
+  enabled: false
+  provider: s3
+  bucket: your-s3-bucket
+  aws_access_key: YOURKEY
+  aws_secret_key: YOURSECRET
+
+restore:
+  file: ./backups/postgres_restore.sql.gz
+
+schedule:
+  cron:
+    minute: "30"
+    hour: "1"
 

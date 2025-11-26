@@ -1,8 +1,24 @@
-dbtype: mongodb
-host: localhost
-port: 27017
-username: admin
-password: secret
-database: mydb
-backup_path: ./backups
+database:
+  engine: mongodb
+  uri: "mongodb://localhost:27017"
+  name: mydatabase
+
+backup:
+  output_dir: ./backups
+  compression: true
+
+storage:
+  enabled: false
+  provider: s3
+  bucket: your-s3-bucket
+  aws_access_key: YOURKEY
+  aws_secret_key: YOURSECRET
+
+restore:
+  file: ./backups/mongo_dump.gz
+
+schedule:
+  cron:
+    minute: "15"
+    hour: "*"
 

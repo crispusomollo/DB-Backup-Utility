@@ -1,18 +1,14 @@
 import subprocess
 import logging
-from .connectors import test_connection
 
 logger = logging.getLogger("dbbackup")
 
-def run_restore(cfg):
-    if not test_connection(cfg):
-        logger.error("Restore aborted: DB connection failed.")
-        return
-
-    backup_file = cfg["restore"]["file"]
+def test_connection(cfg):
+    """
+    Test DB connection using CLI tools.
+    Supports: mysql, postgres
+    """
     engine = cfg["database"]["engine"]
-
-    logger.info(f"Restoring from: {backup_file}")
 
     if engine == "mysql":
         cmd = [
@@ -20,25 +16,24 @@ def run_restore(cfg):
             "-h", cfg["database"]["host"],
             "-u", cfg["database"]["user"],
             f"-p{cfg['database']['password']}",
-            cfg["database"]["name"],
+            "-e", "SELECT 1;"
         ]
 
     elif engine == "postgres":
         cmd = [
             "psql",
             f"postgresql://{cfg['database']['user']}:{cfg['database']['password']}@"
-            f"{cfg['database']['host']}:{cfg['database']['port']}/{cfg['database']['name']}"
+            f"{cfg['database']['host']}:{cfg['database']['port']}/{cfg['database']['name']}",
+            "-c", "SELECT 1;"
         ]
-
     else:
         raise ValueError(f"Unsupported engine: {engine}")
 
     try:
-        with open(backup_file, "rb") as f:
-            subprocess.check_call(cmd, stdin=f)
-
-        logger.info("Restore completed successfully.")
-
+        subprocess.check_output(cmd, stderr=subprocess.STDOUT)
+        logger.info("Connection successful.")
+        return True
     except subprocess.CalledProcessError as e:
-        logger.error(f"Restore failed: {e}")
+        logger.error(f"Connection failed: {e.output.decode()}")
+        return False
 

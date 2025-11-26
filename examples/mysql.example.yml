@@ -1,8 +1,27 @@
-dbtype: mysql
-host: localhost
-port: 3306
-username: root
-password: secret
-database: mydb
-backup_path: ./backups
+database:
+  engine: mysql
+  host: localhost
+  port: 3306
+  user: root
+  password: yourpassword
+  name: mydatabase
+
+backup:
+  output_dir: ./backups
+  compression: true
+
+storage:
+  enabled: false
+  provider: s3
+  bucket: your-s3-bucket
+  aws_access_key: YOURKEY
+  aws_secret_key: YOURSECRET
+
+restore:
+  file: ./backups/mysql_restore.sql.gz
+
+schedule:
+  cron:
+    minute: "0"
+    hour: "2"
 
